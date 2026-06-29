@@ -25,3 +25,7 @@ replay_pid*
 
 # Personal Files
 *.pdf
+anotações.txt
+
+#API key
+api-key.txt
