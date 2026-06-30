@@ -50,7 +50,34 @@ public class WeatherApplication{
     }
 
     public static void imprimirDadosClimaticos(String dadosClimaticos){
+        //System.out.println("Dados originais em JSON" + dadosClimaticos);
 
+        JSONObject dadosJson = new JSONObject(dadosClimaticos);
+        JSONObject informacoesMeteorologicas = dadosJson.getJSONObject("current"); //pegando os dados atuais
+
+        //Extrai os dados da cidade informada
+        String cidade = dadosJson.getJSONObject("location").getString("name");
+        String pais = dadosJson.getJSONObject("location").getString("country");
+
+        //Extrai dados adicionais da localização
+        String condicaoTempo = informacoesMeteorologicas.getJSONObject("condition").getString("text");
+        int umidade = informacoesMeteorologicas.getInt("humidity");
+        float velocidadeVento = informacoesMeteorologicas.getFloat("wind_kph");
+        float pressaoAtmosferica = informacoesMeteorologicas.getFloat("pressure_mb");
+        float sensacaoTermica = informacoesMeteorologicas.getFloat("feelslike_c");
+        float temperaturaAtual = informacoesMeteorologicas.getFloat("temp_c");
+
+        //Extrai a data e hora da string retornada pela API
+        String datahoraString = informacoesMeteorologicas.getString("last_updated");
+
+        System.out.println("Informações Meteorológicas para: " + cidade + ", " + pais);
+        System.out.println("Data e Hora: " + datahoraString);
+        System.out.println("Temperatura Atual: " + temperaturaAtual + " °C");
+        System.out.println("Sensação Térmica: " + sensacaoTermica + " °C");
+        System.out.println("Condição do Tempo: " + condicaoTempo);
+        System.out.println("Umidade " + umidade + "%");
+        System.out.println("Velocidade do Vento: " + velocidadeVento + "km/h");
+        System.out.println("Pressão Atmosférica: " + pressaoAtmosferica + "mb");
     }
 }
 
